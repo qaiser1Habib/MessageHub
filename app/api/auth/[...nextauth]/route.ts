@@ -1,4 +1,4 @@
-import authOptions from "./option"; // Update the path accordingly
+import authOptions from "./option"; 
 import NextAuth from "next-auth";
 
 const handler = NextAuth(authOptions);
