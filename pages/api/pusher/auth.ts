@@ -8,7 +8,7 @@ export default async function handler(request: NextApiRequest, response: NextApi
 	const session = await getServerSession(request, response, authOptions);
 
 	if (!session?.user?.email) {
-		return response.status(401);
+		return response.status(401).json({ message: "Unauthorized" });
 	}
 
 	const socketId = request.body.socket_id;
@@ -19,5 +19,5 @@ export default async function handler(request: NextApiRequest, response: NextApi
 
 	const authResponse = pusherServer.authorizeChannel(socketId, channel, data);
 
-	return response.send(authResponse);
+	return response.json(authResponse);
 }
