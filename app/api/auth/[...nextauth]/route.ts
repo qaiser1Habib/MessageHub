@@ -37,21 +37,24 @@ export const authOptions: AuthOptions = {
 					throw new Error("invalid credentials");
 				}
 
-				const isCorrectPassword = await bcrypt.compare(credentials.password, user.hashedPassword);
+        const isCorrectPassword = await bcrypt.compare(
+          credentials.password,
+          user.hashedPassword
+        );
 
-				if (!isCorrectPassword) {
-					throw new Error("Invalid credentials");
-				}
+        if (!isCorrectPassword) {
+          throw new Error('Invalid credentials');
+        }
 
-				return user;
-			},
-		}),
-	],
-	debug: process.env.NODE_ENV === "development",
-	session: {
-		strategy: "jwt",
-	},
-	secret: process.env.NEXTAUTH_SECRET,
+        return user;
+      }
+    })
+  ],
+  debug: process.env.NODE_ENV === 'development',
+  session: {
+    strategy: "jwt",
+  },
+  secret: process.env.NEXTAUTH_SECRET,
 };
 
 const handler = NextAuth(authOptions);
