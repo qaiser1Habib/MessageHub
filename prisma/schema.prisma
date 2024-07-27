@@ -22,8 +22,9 @@ model User {
 
   conversationIds String[]       @db.ObjectId
   conversations   Conversation[] @relation(fields: [conversationIds], references: [id])
-  seenMessageIds  String[]       @db.ObjectId
-  seenMessages    Message[]      @relation("Seen", fields: [seenMessageIds], references: [id])
+
+  seenMessageIds String[]  @db.ObjectId
+  seenMessages   Message[] @relation("Seen", fields: [seenMessageIds], references: [id])
 
   accounts Account[]
   messages Message[]
@@ -38,9 +39,9 @@ model Account {
   refresh_token     String? @db.String
   access_token      String? @db.String
   expires_at        Int?
-  token_type        String
+  token_type        String?
   scope             String?
-  id_token          String  @db.String
+  id_token          String? @db.String
   session_state     String?
 
   user User @relation(fields: [userId], references: [id], onDelete: Cascade)
@@ -55,8 +56,8 @@ model Conversation {
   name          String?
   isGroup       Boolean?
 
-  messageIds String[]  @db.ObjectId
-  messages   Message[]
+  messagesIds String[]  @db.ObjectId
+  messages    Message[]
 
   userIds String[] @db.ObjectId
   users   User[]   @relation(fields: [userIds], references: [id])
